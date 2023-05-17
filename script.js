@@ -1,16 +1,35 @@
 const containerElement = document.querySelector('.container');
-const jokeButton = document.createElement('button');
-jokeButton.textContent = 'Joke';
-containerElement.append(jokeButton)
 const jokeText = document.createElement('p');
+const categoryForm = document.querySelector('#category-form');
+const selectElement = categoryForm.querySelector('#category');
 
-jokeButton.addEventListener('click', () => getJoke())
-
-function getJoke() {
-    fetch('https://api.chucknorris.io/jokes/random')
+function getJoke(category) {
+    fetch(`https://api.chucknorris.io/jokes/random?category=${category}`)
         .then(res => res.json())
         .then(jokeData => {
             jokeText.textContent = jokeData.value;
             containerElement.append(jokeText)
         })
 }
+
+function doJokeCategory() {
+    fetch('https://api.chucknorris.io/jokes/categories')
+        .then(res => res.json())
+        .then(categoryList => {
+            categoryList.forEach(category => {
+                const categorySelectElement = document.createElement('option');
+                categorySelectElement.textContent = category;
+                categorySelectElement.value = category;
+                selectElement.append(categorySelectElement)
+            })
+        })
+    }
+    
+    doJokeCategory()
+    
+    categoryForm.addEventListener('submit', event => {
+        event.preventDefault()
+    
+        const category = event.target.category.value;
+        getJoke(category)
+    })
