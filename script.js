@@ -23,13 +23,13 @@ function doJokeCategory() {
                 selectElement.append(categorySelectElement)
             })
         })
-    }
-    
-    doJokeCategory()
-    
-    categoryForm.addEventListener('submit', event => {
-        event.preventDefault()
-    
-        const category = event.target.category.value;
-        getJoke(category)
-    })
+}
+
+doJokeCategory()
+
+categoryForm.addEventListener('submit', event => {
+    event.preventDefault()
+
+    const category = event.target.category.value;
+    getJoke(category)
+})
