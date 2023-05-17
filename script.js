@@ -18,18 +18,22 @@ function doJokeCategory() {
         .then(categoryList => {
             categoryList.forEach(category => {
                 const categorySelectElement = document.createElement('option');
-                categorySelectElement.textContent = category;
+                const categoryContent = '- ' + category.charAt(0).toUpperCase() + category.slice(1);
+                categorySelectElement.textContent = categoryContent;
                 categorySelectElement.value = category;
                 selectElement.append(categorySelectElement)
             })
         })
+        return true;
 }
 
 doJokeCategory()
 
 categoryForm.addEventListener('submit', event => {
     event.preventDefault()
-
+    
     const category = event.target.category.value;
-    getJoke(category)
+    if (doJokeCategory()) {
+        getJoke(category)
+    }
 })
