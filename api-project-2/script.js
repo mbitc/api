@@ -1,3 +1,5 @@
+document.cookie = 'SameSite=Strict'
+
 const pictureDivElelemnt = document.querySelector('#picture');
 const pictureElelemnt = document.createElement('img');
 
