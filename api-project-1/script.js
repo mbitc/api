@@ -20,7 +20,7 @@ divContentElement.append(statusMessegeElement);
 })()
 
 function searchZip(country, zip) {
-    fetch(`http://api.zippopotam.us/${country}/${zip}`)
+    fetch(`https://api.zippopotam.us/${country}/${zip}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
