@@ -1,10 +1,7 @@
 const searchFormElement = document.querySelector('#search-zip');
-const countryListElement = searchFormElement.querySelector('#country');
 const containerElement = document.querySelector('.container');
+const countryListElement = searchFormElement.querySelector('#country');
 const divContentElement = document.createElement('div');
-const statusMessegeElement = document.createElement('p');
-containerElement.append(divContentElement);
-divContentElement.append(statusMessegeElement);
 
 (function countrySelector() {
     fetch('country-list.json')
@@ -19,7 +16,7 @@ divContentElement.append(statusMessegeElement);
     })
 })()
 
-function searchZip(country, zip) {
+function searchZip(country, zip, statusMessegeElement) {
     fetch(`https://api.zippopotam.us/${country}/${zip}`)
         .then(res => {
             if (res.ok) {
@@ -35,7 +32,7 @@ function searchZip(country, zip) {
             const places = jsonRes.places;
             places.forEach(place => {
                 const placeElement = document.createElement('ul');
-                divContentElement.append(placeElement)
+                statusMessegeElement.after(placeElement)
                 for (const property in place) {
                     const placeLiElement = document.createElement('li');
                     placeElement.append(placeLiElement)
@@ -44,12 +41,16 @@ function searchZip(country, zip) {
             })
         })
         .catch(error => console.error(error))
-} 
-
-searchFormElement.addEventListener('submit', event => {
-    event.preventDefault()
+    } 
+    
+    searchFormElement.addEventListener('submit', event => {
+        event.preventDefault()
+        divContentElement.innerHTML = '';
+        const statusMessegeElement = document.createElement('p');
+        containerElement.append(divContentElement);
+        divContentElement.append(statusMessegeElement);
     const country = event.target.country.value;
     const zip = event.target.zip.value;
     statusMessegeElement.textContent = 'Loading...';
-    searchZip(country, zip)
+    searchZip(country, zip, statusMessegeElement)
 })
