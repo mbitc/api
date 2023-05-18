@@ -48,14 +48,14 @@ function queryJoke() {
                    return res.json();
                 } else {
                     jokeText.textContent = 'Wrong input!!!'
-                    throw new Error
+                    throw new Error(res.status)
                 }
             })
             .then(jokeObj => {
-                function getRandomInt(max) {
-                    return Math.floor(Math.random() * max);
-                }
                 if (jokeObj.total !== 0) {
+                    function getRandomInt(max) {
+                        return Math.floor(Math.random() * max);
+                    }
                     jokeText.textContent = jokeObj.result[getRandomInt(jokeObj.total)].value;
                 } else {
                     jokeText.textContent = 'No match!!!'
