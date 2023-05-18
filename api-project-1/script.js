@@ -50,5 +50,6 @@ searchFormElement.addEventListener('submit', event => {
     event.preventDefault()
     const country = event.target.country.value;
     const zip = event.target.zip.value;
+    statusMessegeElement.textContent = 'Loading...';
     searchZip(country, zip)
 })
