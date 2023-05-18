@@ -2,6 +2,7 @@ const searchFormElement = document.querySelector('#search-zip');
 const containerElement = document.querySelector('.container');
 const countryListElement = searchFormElement.querySelector('#country');
 const divContentElement = document.createElement('div');
+containerElement.append(divContentElement);
 
 (function countrySelector() {
     fetch('country-list.json')
@@ -47,7 +48,6 @@ function searchZip(country, zip, statusMessegeElement) {
         event.preventDefault()
         divContentElement.innerHTML = '';
         const statusMessegeElement = document.createElement('p');
-        containerElement.append(divContentElement);
         divContentElement.append(statusMessegeElement);
     const country = event.target.country.value;
     const zip = event.target.zip.value;
